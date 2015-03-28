@@ -1,0 +1,31 @@
+<%= form_for :question do|f| %>
+  <select name="topics" id="parent_topic">
+    <% @topics.each do |topic| %>
+      <option value=<%=topic.id%>><%= topic.name %></option>
+    <% end %>
+  </select><br>
+  <select name="question[topic_id]" id="sub_topic">
+
+  </select><br>
+      <%= f.submit('Add')%>
+<% end %>
+
+
+<script type="text/javascript">
+  $("#parent_topic").on('change', function(event) {
+    event.preventDefault();
+    var data = $(this).serialize();
+    var value = this.value;
+    var Url= "/topics/" + value;
+    $.ajax(Url, {
+      data: data,
+      type: 'GET'
+    }).then(function(response) {
+        var sub_topic = response.sub_topic
+       $("#sub_topic").empty()
+       for(var i=0; i < sub_topic.length; i++){
+        $("#sub_topic").append("<option value=" + sub_topic.id +">"+ sub_topic[i].name +"</option>");
+        }
+      })
+  } )
+</script>
