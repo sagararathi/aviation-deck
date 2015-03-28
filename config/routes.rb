@@ -3,4 +3,5 @@ Rails.application.routes.draw do
     resources :answers do
     end
   end
+  resources :topics
 end
