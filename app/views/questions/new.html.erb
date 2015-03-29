@@ -1,14 +1,23 @@
+<div class="select_topic">
 <%= form_for :question do|f| %>
   <select name="topics" id="parent_topic">
     <% @topics.each do |topic| %>
       <option value=<%=topic.id%>><%= topic.name %></option>
     <% end %>
   </select><br>
-  <select name="question[topic_id]" id="sub_topic">
+  <select name="sub_topic" id="sub_topic">
 
   </select><br>
-      <%= f.submit('Add')%>
 <% end %>
+</div>
+<div class="display">
+  <div id="display_question">
+
+  </div>
+  <div id="display_answer">
+
+  </div>
+</div>
 
 
 <script type="text/javascript">
@@ -21,11 +30,74 @@
       data: data,
       type: 'GET'
     }).then(function(response) {
-        var sub_topic = response.sub_topic
-       $("#sub_topic").empty()
+        var sub_topic = response.sub_topic;
+       $("#sub_topic").empty();
        for(var i=0; i < sub_topic.length; i++){
-        $("#sub_topic").append("<option value=" + sub_topic.id +">"+ sub_topic[i].name +"</option>");
+        $("#sub_topic").append("<option value=" + sub_topic[i].id +">"+ sub_topic[i].name +"</option>");
         }
       })
-  } )
+  } );
+
+  $(".select_topic").on("change","#sub_topic", function(event){
+    event.preventDefault();
+     $("#display_question").empty();
+    var data = $(this).serialize();
+    var value = this.value;
+    var Url = "/questions/" + value;
+    $.ajax(Url, {
+      data: data,
+      type: "GET"
+    }).then(function(response){
+      var question = response.question;
+      var options = response.answers;
+      $("#display_question").empty();
+      $("#display_question").append("<h2>"+ question.ques +"</h2>");
+      for(var i=0; i < options.length; i++){
+        $("#display_question").append("<h3><input type='radio' class='radio_button' value='"+options[i].id +"'/>"+ options[i].option +"</h3>");
+      }
+        $("#display_question").append("<button id='button_next' value="+ question.id +">Next</button>")
+    })
+  });
+
+  $("#display_question").on("click", "#button_next", function(event){
+    event.preventDefault();
+    var data = $(this).serialize();
+    var value = this.value;
+    var Url = "/next/" + value;
+    $.ajax(Url,{
+      data: data,
+      type: "GET"
+    }).then(function(response){
+      var question = response.question;
+      var options = response.answers;
+      var status = response.status
+      $("#display_question").empty();
+      if(question){
+      $("#display_question").append("<h2>"+ question.ques +"</h2>");
+      for(var i=0; i < options.length; i++){
+        $("#display_question").append("<h3><input type='radio' class='radio_button' value='"+options[i].id +"'/>"+ options[i].option +"</h3>");
+      }
+        $("#display_question").append("<button id='button_next' value="+ question.id +">Next</button>")
+      } else {
+        $("#display_question").append("<h2>"+ status +"</h2>")
+      }
+    })
+
+  });
+
+  $("#display_question").on('change', ".radio_button", function(event){
+    event.preventDefault();
+    $(".radio_button").attr('disabled', true);
+    var data = $(this).serialize();
+    var value = this.value;
+    var Url = "/answers/" + value;
+    $.ajax(Url, {
+      data: data,
+      type: "GET"
+    }).then(function(response){
+      var result = response.result;
+      $("#display_answer").append("<h3>" + result +"</h3>");
+    })
+    });
 </script>
+
