@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20150327183307) do
 
   create_table "answers", force: :cascade do |t|
     t.string  "option"
-    t.boolean "valid"
+    t.boolean "check"
     t.integer "question_id"
   end
 

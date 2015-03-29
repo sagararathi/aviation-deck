@@ -19,7 +19,7 @@ Topic.create!([{name: "Select From List"},
                 {name: "principles of flight - aeroplane"}
               ])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List", parent_topic_id: 2},
   {name: "ANNEX 1 – PERSONNEL LICENSING", parent_topic_id: 2},
   {name: "ANNEX 7 – AIRCRAFT NATIONALITY AND REGISTRATION MARKS", parent_topic_id: 2},
   {name: "ANNEX 8 - AIRWORTHINESS OF AIRCRAFT", parent_topic_id: 2},
@@ -58,7 +58,7 @@ Topic.create!([{ name: "Select Sub Topic"},
   {name: "Visual aids for Denoting Areas of Restrictive Use", parent_topic_id: 2},
   {name: "Visual Flight Rules VFR", parent_topic_id: 2}])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List", parent_topic_id: 3},
   { name: "Fuel system", parent_topic_id: 3 },
   { name: "Fuselage", parent_topic_id: 3 },
   { name: "Cockpit and cabin windows", parent_topic_id: 3 },
@@ -87,7 +87,7 @@ Topic.create!([{ name: "Select Sub Topic"},
   { name: "Aircraft oxygen equipment", parent_topic_id: 3 },
   { name: "Emergency equipment", parent_topic_id: 3 }])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List", parent_topic_id: 4},
   { name: "Air Data Instruments", parent_topic_id: 4},
   { name: "Gyroscopic Instruments", parent_topic_id: 4},
   { name: "Magnetic Compass", parent_topic_id: 4},
@@ -119,7 +119,7 @@ Topic.create!([{ name: "Select Sub Topic"},
   { name: "Remote (signal) Transmission System", parent_topic_id: 4},
   { name: "Electronic Displays (ECAM, EICAS)", parent_topic_id: 4}])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List",parent_topic_id: 5},
               {name: "Centre of gravity (cg)", parent_topic_id: 5},
               {name: "Mass and balance limits", parent_topic_id: 5},
               {name: "Terminology", parent_topic_id: 5},
@@ -131,7 +131,7 @@ Topic.create!([{ name: "Select Sub Topic"},
               {name: "Securing of load CG", parent_topic_id: 5},
               {name: "Area Load, Running Load, Supporting", parent_topic_id: 5}])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List", parent_topic_id: 6},
               {name: "Definitions of terms and speeds used", parent_topic_id: 6},
               {name: "Take-off and landing performance", parent_topic_id: 6},
               {name: "Climb and cruise performance", parent_topic_id: 6},
@@ -146,7 +146,7 @@ Topic.create!([{ name: "Select Sub Topic"},
               {name: "Descent and landing", parent_topic_id: 6},
               {name: "Practical application of an airplane performance manual", parent_topic_id: 6}])
 
-Topic.create!([{ name: "Select Sub Topic"},
+Topic.create!([{name: "Select From List", parent_topic_id: 7},
               {name: "Navigation plan", parent_topic_id: 7},
               {name: "Fuel plan", parent_topic_id: 7},
               {name: "Flight monitoring and in-flight replanning", parent_topic_id: 7},
@@ -166,3 +166,15 @@ Topic.create!([{ name: "Select Sub Topic"},
               {name: "Advanced flight planning aspects for jet aeroplanes", parent_topic_id: 7},
               {name: "Computerised flight planning", parent_topic_id: 7},
               {name: "Extraction of data", parent_topic_id: 7}])
+
+Question.create!([{ques:"What is the period of validity of a JAR CPL?", topic_id: 14},
+  {ques: "If a JAA member state validates a licence issued by a non-JAA state. How long is the period of validation?", topic_id: 14}]);
+
+Answer.create!([{ option: "1 year", check: false, question_id: 1 },
+                { option: "2 year", check: false, question_id: 1 },
+                { option: "3 year", check: false, question_id: 1 },
+                { option: "5 year", check: true, question_id: 1 }])
+Answer.create!([{option: "The licence is only valid during the remaining period of validity in accordance with the rules of the non-JAA issuing state", check: true, question_id: 2},
+                {option: "Only one year and must then be replaced by a full JAA licence", check: false, question_id: 2},
+                {option: "A JAA member state is not permitted to validate a non-JAA licence", check: false, question_id: 2},
+                {option: "A full period of five years just the same as any licence issue by a JAA state", check: false, question_id: 2}])
