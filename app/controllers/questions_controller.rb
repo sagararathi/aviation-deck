@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   def new
-    @topics= Topic.where(parent_topic_id: nil)
+    display_parent_topic
     @question = Question.new
   end
 
